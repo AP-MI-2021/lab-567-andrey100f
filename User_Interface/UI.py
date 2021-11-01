@@ -1,4 +1,4 @@
-from Domain.cheltuieli import get_to_string
+from Domain.cheltuieli import get_to_string, get_tip
 from Logic.CRUD import adaugare_cheltuiala, stergere_cheltuiala, modificare_cheltuiala
 from Logic.functionalitati import stergere_cheltuieli_apartament, adunare_valoare_cheltuieli, \
     cele_mai_mari_cheltuieli, ordonare_dupa_suma
@@ -53,12 +53,10 @@ def modificare_cheltuiala_ui(lista):
 
 def cele_mai_mari_cheltuieli_ui(lista):
     lista_maxime = cele_mai_mari_cheltuieli(lista)
-    print("Maximul pentru tipul << intretinere >> este: ")
-    print(get_to_string(lista_maxime[0]))
-    print("Maximul pentru tipul << canal >> este: ")
-    print(get_to_string(lista_maxime[1]))
-    print("Maximul pentru tipul << alte cheltuieli >> este: ")
-    print(get_to_string(lista_maxime[2]))
+    for cheltuiala in lista_maxime:
+        if cheltuiala != {}:
+            print("Maximul pentru tipul << " + get_tip(cheltuiala) + " >> este: ")
+            print(get_to_string(cheltuiala))
 
 
 def stergere_cheltuieli_apartament_ui(lista):
@@ -87,9 +85,6 @@ def afisare_toate(lista):
 def meniu():
     afisare_meniu()
     lista = []
-    lista = adaugare_cheltuiala(1010, 5, 100, "19.10.2021", "intretinere", lista)
-    lista = adaugare_cheltuiala(2020, 10, 300, "17.11.2021", "alte cheltuieli", lista)
-    lista = adaugare_cheltuiala(3030, 20, 250, "14.02.2021", "canal", lista)
     merge = True
     while merge is True:
         optiune = input("Dati o optiune: ")

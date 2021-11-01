@@ -1,5 +1,5 @@
 from Domain.cheltuieli import get_numar_apartament, get_id, get_data, get_suma, get_tip, creare_cheltuiala
-from Logic.CRUD import verificare_numar_apartament, verificare_data
+from Logic.CRUD import verificare_numar_apartament, verificare_data, verificare_tip
 
 
 def stergere_cheltuieli_apartament(numar_apartament, lista):
@@ -49,6 +49,8 @@ def cea_mai_mare_cheltuiala_intretinere(lista):
     :return: un dictionar, ce reprezinta cheltuiala cea mai mare de tipul "intretinere
     """
     maxim_intretinere = {}
+    if verificare_tip("intretinere", lista) is None:
+        return maxim_intretinere
     maxim_suma = 0
     for cheltuiala in lista:
         if get_tip(cheltuiala) == "intretinere" and get_suma(cheltuiala) > maxim_suma:
@@ -64,6 +66,8 @@ def cea_mai_mare_cheltuiala_canal(lista):
     :return: un dictionar, ce reprezinta cheltuiala cea mai mare de tipul "canal"
     """
     maxim_canal = {}
+    if verificare_tip("canal", lista) is None:
+        return maxim_canal
     maxim_suma = 0
     for cheltuiala in lista:
         if get_tip(cheltuiala) == "canal" and get_suma(cheltuiala) > maxim_suma:
@@ -79,6 +83,8 @@ def cea_mai_nare_cheltuiala_altele(lista):
     :return: un dictionar, ce reprezinta cheltuiala cea mai mare de tipul "alte cheltuieli"
     """
     maxim_altele = {}
+    if verificare_tip("alte cheltuieli", lista) is None:
+        return maxim_altele
     maxim_suma = 0
     for cheltuiala in lista:
         if get_tip(cheltuiala) == "alte cheltuieli" and get_suma(cheltuiala) > maxim_suma:
@@ -109,4 +115,4 @@ def ordonare_dupa_suma(lista):
     :param lista: o lista de dictionare
     :return: lista de dictionare ordonata conform cerintei
     """
-    return sorted(lista, key = lambda cheltuiala: get_suma(cheltuiala), reverse = True)
+    return sorted(lista, key=lambda cheltuiala: get_suma(cheltuiala), reverse=True)
