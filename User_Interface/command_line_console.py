@@ -33,22 +33,26 @@ def ajutor():
 
 def meniu():
     lista = []
+    lista = adaugare_cheltuiala(1010, 5, 100, "19.10.2021", "intretinere", lista)
+    lista = adaugare_cheltuiala(2020, 10, 300, "19.10.2021", "alte cheltuieli", lista)
     merge = True
     while merge is True:
-        text = input("Intorduceti comanda: ")
-        comanda = text.split(" ")
-        if comanda[0] == "add":
-            lista = adaugare(int(comanda[1]), int(comanda[2]), int(comanda[3]), comanda[4], comanda[5], lista)
-        elif comanda[0] == "update":
-            lista = modificare(int(comanda[1]), int(comanda[2]), int(comanda[3]), comanda[4], comanda[5], lista)
-        elif comanda[0] == "show_all":
-            afisare_toate(lista)
-        elif comanda[0] == "help":
-            ajutor()
-        elif comanda[0] == "stop":
-            merge = False
-        else:
-            print("Comanda gresita! Incercati din nou!")
+        text = input("Intorduceti comenzile: ")
+        lista_comenzi = text.split("-")
+        for comanda in lista_comenzi:
+            optiune = comanda.split(" ")
+            if optiune[0] == "add":
+                lista = adaugare(int(optiune[1]), int(optiune[2]), int(optiune[3]), optiune[4], optiune[5], lista)
+            elif optiune[0] == "update":
+                lista = modificare(int(optiune[1]), int(optiune[2]), int(optiune[3]), optiune[4], optiune[5], lista)
+            elif optiune[0] == "show_all":
+                afisare_toate(lista)
+            elif optiune[0] == "help":
+                ajutor()
+            elif optiune[0] == "stop":
+                merge = False
+            else:
+                print("Comanda gresita! Incercati din nou!")
 
 
 meniu()
