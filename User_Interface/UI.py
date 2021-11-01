@@ -1,6 +1,7 @@
 from Domain.cheltuieli import get_to_string
 from Logic.CRUD import adaugare_cheltuiala, stergere_cheltuiala, modificare_cheltuiala
-from Logic.functionalitati import stergere_cheltuieli_apartament, adunare_valoare_cheltuieli, cele_mai_mari_cheltuieli
+from Logic.functionalitati import stergere_cheltuieli_apartament, adunare_valoare_cheltuieli, \
+    cele_mai_mari_cheltuieli, ordonare_dupa_suma
 
 
 def afisare_meniu():
@@ -10,6 +11,7 @@ def afisare_meniu():
     print("4. Ștergerea tuturor cheltuielilor pentru un apartament dat")
     print("5. Adunarea unei valori la toate cheltuielile dintr-o dată citită.")
     print("6. Determinarea celei mai mari cheltuieli pentru fiecare tip de cheltuială.")
+    print("7. Ordonarea cheltuielilor descrescător după sumă.")
     print("a. Afisare cheltuieli")
     print("x. Iesire")
 
@@ -70,6 +72,13 @@ def adunare_valoare_cheltuieli_ui(lista):
     return adunare_valoare_cheltuieli(data, lista, valoare)
 
 
+def ordonare_dupa_suma_ui(lista):
+    lista_ordonata = ordonare_dupa_suma(lista)
+    print("Ordinea este: ")
+    for cheltuiala in lista_ordonata:
+        print(get_to_string(cheltuiala))
+
+
 def afisare_toate(lista):
     for cheltuiala in lista:
         print(get_to_string(cheltuiala))
@@ -78,6 +87,9 @@ def afisare_toate(lista):
 def meniu():
     afisare_meniu()
     lista = []
+    lista = adaugare_cheltuiala(1010, 5, 100, "19.10.2021", "intretinere", lista)
+    lista = adaugare_cheltuiala(2020, 10, 300, "17.11.2021", "alte cheltuieli", lista)
+    lista = adaugare_cheltuiala(3030, 20, 250, "14.02.2021", "canal", lista)
     merge = True
     while merge is True:
         optiune = input("Dati o optiune: ")
@@ -93,6 +105,8 @@ def meniu():
             lista = adunare_valoare_cheltuieli_ui(lista)
         elif optiune == "6":
             cele_mai_mari_cheltuieli_ui(lista)
+        elif optiune == "7":
+            ordonare_dupa_suma_ui(lista)
         elif optiune == "a":
             afisare_toate(lista)
         elif optiune == "x":

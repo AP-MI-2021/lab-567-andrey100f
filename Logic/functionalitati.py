@@ -101,3 +101,12 @@ def cele_mai_mari_cheltuieli(lista):
     lista_maxime.append(maxim_canal)
     lista_maxime.append(maxim_altele)
     return lista_maxime
+
+
+def ordonare_dupa_suma(lista):
+    """
+    Ordoneaza o lista de cheltuieli descrescator dupa valoarea sumei
+    :param lista: o lista de dictionare
+    :return: lista de dictionare ordonata conform cerintei
+    """
+    return sorted(lista, key = lambda cheltuiala: get_suma(cheltuiala), reverse = True)
