@@ -1,4 +1,4 @@
-from Domain.cheltuieli import creare_cheltuiala, get_id, get_numar_apartament, get_data, get_tip
+from Domain.cheltuieli import creare_cheltuiala, get_id, get_numar_apartament, get_data, get_tip, get_luna
 
 
 def verificare_id(id, lista):
@@ -49,6 +49,19 @@ def verificare_tip(tip, lista):
     """
     for cheltuiala in lista:
         if get_tip(cheltuiala) == tip:
+            return cheltuiala
+    return None
+
+
+def verificare_luna(luna, lista):
+    """
+    Verifica daca o luna dintr-o data se afla intr-o lista
+    :param luna: un sir de caracrere
+    :param lista: o lista de dictionare
+    :return: un dictionar in caz afirmativ, reprezentand cheltuiala, "None" in caz contrar
+    """
+    for cheltuiala in lista:
+        if get_luna(get_data(cheltuiala)) == luna:
             return cheltuiala
     return None
 

@@ -62,6 +62,15 @@ def get_tip(cheltuiala):
     return cheltuiala["tip"]
 
 
+def get_luna(data):
+    """
+    Getter pentru luna dintr-o data
+    :param data: un sir de caractere
+    :return: un sir de caractere
+    """
+    return data[3:5]
+
+
 def get_to_string(cheltuiala):
     """
     Converteste dictionarul "cheltuiala" intr-un sir de caractere

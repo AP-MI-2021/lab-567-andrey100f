@@ -1,7 +1,7 @@
 from Domain.cheltuieli import get_to_string, get_tip
 from Logic.CRUD import adaugare_cheltuiala, stergere_cheltuiala, modificare_cheltuiala
 from Logic.functionalitati import stergere_cheltuieli_apartament, adunare_valoare_cheltuieli, \
-    cele_mai_mari_cheltuieli, ordonare_dupa_suma
+    cele_mai_mari_cheltuieli, ordonare_dupa_suma, calculare_cheltuieli_lunare, determinare_luna
 
 
 def afisare_meniu():
@@ -12,6 +12,7 @@ def afisare_meniu():
     print("5. Adunarea unei valori la toate cheltuielile dintr-o dată citită.")
     print("6. Determinarea celei mai mari cheltuieli pentru fiecare tip de cheltuială.")
     print("7. Ordonarea cheltuielilor descrescător după sumă.")
+    print("8. Afișarea sumelor lunare pentru fiecare apartament.")
     print("a. Afisare cheltuieli")
     print("x. Iesire")
 
@@ -77,6 +78,14 @@ def ordonare_dupa_suma_ui(lista):
         print(get_to_string(cheltuiala))
 
 
+def calculare_cheltuieli_lunare_ui(lista):
+    numar_apartament = int(input("Dati numarul apartamentului: "))
+    lista_cheltuieli = calculare_cheltuieli_lunare(numar_apartament, lista)
+    for cheltuiala in lista_cheltuieli:
+        cheltuiala[0] = determinare_luna(cheltuiala[0])
+        print("Pentru luna: " + cheltuiala[0] + " cheltuielile sunt: " + str(cheltuiala[1]))
+
+
 def afisare_toate(lista):
     for cheltuiala in lista:
         print(get_to_string(cheltuiala))
@@ -102,6 +111,8 @@ def meniu():
             cele_mai_mari_cheltuieli_ui(lista)
         elif optiune == "7":
             ordonare_dupa_suma_ui(lista)
+        elif optiune == "8":
+            calculare_cheltuieli_lunare_ui(lista)
         elif optiune == "a":
             afisare_toate(lista)
         elif optiune == "x":

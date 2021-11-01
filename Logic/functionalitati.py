@@ -1,5 +1,5 @@
-from Domain.cheltuieli import get_numar_apartament, get_id, get_data, get_suma, get_tip, creare_cheltuiala
-from Logic.CRUD import verificare_numar_apartament, verificare_data, verificare_tip
+from Domain.cheltuieli import get_numar_apartament, get_id, get_data, get_suma, get_tip, creare_cheltuiala, get_luna
+from Logic.CRUD import verificare_numar_apartament, verificare_data, verificare_tip, verificare_luna
 
 
 def stergere_cheltuieli_apartament(numar_apartament, lista):
@@ -116,3 +116,73 @@ def ordonare_dupa_suma(lista):
     :return: lista de dictionare ordonata conform cerintei
     """
     return sorted(lista, key=lambda cheltuiala: get_suma(cheltuiala), reverse=True)
+
+
+def lista_numar_apartament(numar_apartament, lista):
+    """
+    Determina o lista cu cheltuieli ce au acelasi numar de apartament
+    :param numar_apartament: o valoare intreaga
+    :param lista: o lista de dictionare
+    :return: o lista de dictionare
+    """
+    lista_noua = []
+    for cheltuiala in lista:
+        if get_numar_apartament(cheltuiala) == numar_apartament:
+            lista_noua.append(cheltuiala)
+    return lista_noua
+
+
+def calculare_cheltuieli_lunare(numar_apartament, lista):
+    """
+    Calculeaza cheltuielile lunare pentru un apartament
+    :param numar_apartament: o valoare intreaga
+    :param lista: o lista de dictionare
+    :return: o valoare intreaga
+    """
+    lista_cheltuieli = []
+    lista_apartament = lista_numar_apartament(numar_apartament, lista)
+    for i in range(len(lista_apartament)):
+        suma = 0
+        luna = get_luna(get_data(lista_apartament[i]))
+        verificare = verificare_luna(get_luna(get_data(lista_apartament[i])), lista_apartament[0:i])
+        if verificare is None:
+            for j in range(i, len(lista_apartament)):
+                if get_luna(get_data(lista_apartament[j])) == luna:
+                    suma = suma + get_suma(lista_apartament[j])
+        if suma != 0:
+            element_nou = [luna, suma]
+            lista_cheltuieli.append(element_nou)
+    return lista_cheltuieli
+
+
+def determinare_luna(luna):
+    """
+    Determina luna unei cheltuieli
+    :param luna: un sir de caractere
+    :return: un sir de caractere
+    """
+    if luna == "01":
+        return "Ianuarie"
+    if luna == "02":
+        return "Februarie"
+    if luna == "03":
+        return "Martie"
+    if luna == "04":
+        return "Aprilie"
+    if luna == "05":
+        return "mai"
+    if luna == "06":
+        return "Iunie"
+    if luna == "07":
+        return "Iulie"
+    if luna == "08":
+        return "August"
+    if luna == "09":
+        return "Septembrie"
+    if luna == "10":
+        return "Octombrie"
+    if luna == "11":
+        return "Noiembrie"
+    if luna == "12":
+        return "Decembrie"
+

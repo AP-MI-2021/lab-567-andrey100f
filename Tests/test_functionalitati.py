@@ -1,7 +1,7 @@
 from Domain.cheltuieli import get_suma, get_id
 from Logic.CRUD import adaugare_cheltuiala
 from Logic.functionalitati import stergere_cheltuieli_apartament, adunare_valoare_cheltuieli, cele_mai_mari_cheltuieli, \
-    ordonare_dupa_suma
+    ordonare_dupa_suma, calculare_cheltuieli_lunare
 
 
 def test_stergere_cheltuieli_apartament():
@@ -41,3 +41,13 @@ def test_ordonare_dupa_suma():
     assert get_id(lista_ordonata[0]) == 2020
     assert get_id(lista_ordonata[1]) == 3030
     assert get_id(lista_ordonata[2]) == 1010
+
+
+def test_calculare_cheltuieli_lunare():
+    lista = []
+    lista = adaugare_cheltuiala(1010, 5, 100, "19.10.2021", "intretinere", lista)
+    lista = adaugare_cheltuiala(2020, 5, 300, "17.10.2021", "alte cheltuieli", lista)
+    lista = adaugare_cheltuiala(3030, 5, 250, "14.02.2021", "canal", lista)
+    lista_cheltuieli = calculare_cheltuieli_lunare(5, lista)
+    assert lista_cheltuieli[0] == ["10", 400]
+    assert lista_cheltuieli[1] == ["20", 250]
