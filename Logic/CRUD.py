@@ -120,3 +120,16 @@ def modificare_cheltuiala(id, numar_apartament, suma, data, tip, lista):
         else:
             lista_noua.append(cheltuiala)
     return lista_noua
+
+
+def get_by_id(id, lista):
+    """
+    Determina cheltuiala ce are un anumit id
+    :param id: o valoare intreaga
+    :param lista: o lista de dictionare
+    :return: un dictionar
+    """
+    for cheltuiala in lista:
+        if id == get_id(cheltuiala):
+            return cheltuiala
+    return None

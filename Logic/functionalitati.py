@@ -18,6 +18,20 @@ def stergere_cheltuieli_apartament(numar_apartament, lista):
     return lista_noua
 
 
+def adaugare_cheltuieli_apartament(numar_apartament, lista):
+    """
+    Adauga toate cheltuielile unui apartament
+    :param numar_apartament: o valoare intreaga
+    :param lista: o lista de dictionare
+    :return: o lista de dictionare
+    """
+    lista_noua = []
+    for cheltuiala in lista:
+        if get_numar_apartament(cheltuiala) == numar_apartament:
+            lista_noua.append(cheltuiala)
+    return lista_noua
+
+
 def adunare_valoare_cheltuieli(data, lista, valoare):
     """
     Aduna o valoare la toate cheltuielile dintr-o anumita data
@@ -34,6 +48,30 @@ def adunare_valoare_cheltuieli(data, lista, valoare):
             id_nou = get_id(cheltuiala)
             numar_apartament_nou = get_numar_apartament(cheltuiala)
             suma_noua = get_suma(cheltuiala) + valoare
+            tip_nou = get_tip(cheltuiala)
+            element_nou = creare_cheltuiala(id_nou, numar_apartament_nou, suma_noua, data, tip_nou)
+            lista_noua.append(element_nou)
+        else:
+            lista_noua.append(cheltuiala)
+    return lista_noua
+
+
+def scadere_valoare_cheltuieli(data, lista, valoare):
+    """
+    Scade o valoare la toate cheltuielile dintr-o anumita data
+    :param data: un sir de caractere
+    :param lista: o lista de dictionare
+    :param valoare: o valoare intreaga
+    :return: o noua lista ce contine noile cheltuieli
+    """
+    if verificare_data(data, lista) is None:
+        raise ValueError("Aceasta data nu exista!")
+    lista_noua = []
+    for cheltuiala in lista:
+        if get_data(cheltuiala) == data:
+            id_nou = get_id(cheltuiala)
+            numar_apartament_nou = get_numar_apartament(cheltuiala)
+            suma_noua = get_suma(cheltuiala) - valoare
             tip_nou = get_tip(cheltuiala)
             element_nou = creare_cheltuiala(id_nou, numar_apartament_nou, suma_noua, data, tip_nou)
             lista_noua.append(element_nou)
