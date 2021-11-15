@@ -1,5 +1,5 @@
 from Domain.cheltuieli import get_numar_apartament, get_id, get_data, get_suma, get_tip, creare_cheltuiala, get_luna
-from Logic.CRUD import verificare_numar_apartament, verificare_data, verificare_tip, verificare_luna
+from Logic.CRUD import verificare_numar_apartament, verificare_data, verificare_tip, verificare_luna, verificare_id
 
 
 def stergere_cheltuieli_apartament(numar_apartament, lista):
@@ -224,3 +224,39 @@ def determinare_luna(luna):
     if luna == "12":
         return "Decembrie"
 
+
+def undo(lista, lista_undo, lista_redo):
+    if len(lista_undo) > 0:
+        lista_redo.append(lista)
+        lista = lista_undo.pop()
+    else:
+        return None
+    return lista
+
+
+def redo(lista, lista_undo, lista_redo):
+    if len(lista_redo) > 0:
+        lista_undo.append(lista)
+        lista = lista_redo.pop()
+    return lista
+
+
+def adaugare_cheltuiala_undo_redo(id, numar_apartament, suma, data, tip, lista, lista_undo, lista_redo):
+    """
+    Adauga o cheltuiala intr-o lista
+    :param id: o valoare intreaga
+    :param numar_apartament: o valoare intreaga
+    :param suma: o valoare intreaga
+    :param data: un sir de caractere
+    :param tip: un sir de caractere
+    :param lista: o lista de dictionare
+    :param lista_undo: o lista de dictionare
+    :param lista_redo: o lista de dictionare
+    :return: o lista de dictionare, ce contine noua cheltuiala
+    """
+    if verificare_id(id, lista) is not None:
+        raise ValueError("Acest id exista deja! Introduceti alt id!")
+    cheltuiala = creare_cheltuiala(id, numar_apartament, suma, data, tip)
+    lista_undo.append(lista)
+    lista_redo.clear()
+    return lista + [cheltuiala]
